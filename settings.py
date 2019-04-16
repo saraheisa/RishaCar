@@ -11,7 +11,7 @@ import logconfig
 path = lambda root,*a: os.path.join(root, *a)
 ROOT = os.path.dirname(os.path.abspath(__file__))
 
-define("port", help="run on the given port", type=int)
+define("PORT", help="run on the given port", type=int)
 define("config", default=None, help="tornado config file")
 define("debug", default=True, help="debug mode")
 define("facebook_api_key", default="1047153442161077", help="your Facebook application API key", type=str)
