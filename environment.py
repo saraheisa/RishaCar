@@ -1,4 +1,4 @@
-"""Add the boilerplate's directories to Python's site-packages path.
+"""Add the rishacar's directories to Python's site-packages path.
 """
 import os
 import site

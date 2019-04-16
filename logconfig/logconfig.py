@@ -44,6 +44,7 @@ class NullHandler(logging.Handler):
 
 def initialize_logging(syslog_tag, syslog_facility, loggers,
         log_level=logging.INFO, use_syslog=False):
+    syslog_device = ''
     if os.path.exists('/dev/log'):
         syslog_device = '/dev/log'
     elif os.path.exists('/var/run/syslog'):

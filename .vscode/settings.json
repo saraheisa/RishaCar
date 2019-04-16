@@ -1,0 +1,7 @@
+{
+    "python.pythonPath": "C:\\Users\\Sara\\.virtualenvs\\master-Lhmjfrez\\Scripts\\python.exe",
+    "python.formatting.provider": "yapf",
+    "python.linting.pylintEnabled": true,
+    "python.linting.enabled": true,
+    "editor.tabSize": 2
+}

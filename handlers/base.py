@@ -1,9 +1,13 @@
 import json
 import tornado.web
+import jwt
+import datetime
+from lib.auth import jwtauth
 
 import logging
-logger = logging.getLogger('boilerplate.' + __name__)
+logger = logging.getLogger('rishacar.' + __name__)
 
+SECRET = "secret_key"
 
 class BaseHandler(tornado.web.RequestHandler):
     """A class to collect common handler methods - all other handlers should
@@ -43,3 +47,11 @@ class BaseHandler(tornado.web.RequestHandler):
         arg = self.request.arguments[name]
         logger.debug("Found '%s': %s in JSON arguments" % (name, arg))
         return arg
+    
+    def jwtEncode(self):
+        return jwt.encode({
+            'some': 'payload',
+            'exp': datetime.datetime.utcnow() + datetime.timedelta(seconds=100)},
+            SECRET,
+            algorithm='HS256'
+        )
