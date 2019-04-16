@@ -1,9 +1,9 @@
 #!/usr/bin/env python
 
+import os.path
 import tornado.httpserver
 import tornado.ioloop
 import tornado.web
-import os.path
 from tornado.options import options
 from settings import settings
 from urls import url_patterns

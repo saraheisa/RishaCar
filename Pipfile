@@ -9,12 +9,12 @@ yapf = "*"
 
 [packages]
 tornado = "*"
-pyjwt = "*"
 motor = "*"
 nose = "*"
 pylint = "*"
 pycrypto = "*"
 pycryptodome = "*"
+PyJWT = "*"
 
 [requires]
 python_version = "3.7"
