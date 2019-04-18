@@ -55,3 +55,6 @@ class BaseHandler(tornado.web.RequestHandler):
             SECRET,
             algorithm='HS256'
         )
+    def listToDict(self, l):
+        d = {v: k for v, k in enumerate(l)}
+        return d

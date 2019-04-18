@@ -3,7 +3,6 @@ import motor.motor_tornado
 # db = motor.motor_tornado.MotorClient('localhost', 27017).RichaCarDB
 connection = motor.motor_tornado.MotorClient('mongodb://admin:aMtcr6Bi4xixhp2C4EK4mKerd@ds119996.mlab.com:19996/rishacar')
 db  = connection.rishacar
-print(db)
 
 class UserFunctions:
   async def getUsers(self):

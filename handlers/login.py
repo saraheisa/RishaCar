@@ -1,5 +1,6 @@
 import json
 import base64
+import logging
 # from Crypto.Cipher import AES
 # from Crypto.Hash import SHA256
 # from Crypto import Random
@@ -8,23 +9,22 @@ from bson.json_util import dumps
 from handlers.base import BaseHandler
 from lib.DBConnection import UserFunctions
 
-import logging
 logger = logging.getLogger('rishacar.' + __name__)
 
 class LoginHandler(BaseHandler):
   async def post(self):
-    if (self.request.body):
+    if self.request.body:
       data = json.loads(self.request.body)
       # print(encrypt(""))
       user = ''
-      if ( ('password' in data) & ('username' in data) ):
+      if ('password' in data) & ('username' in data):
         userFunc = UserFunctions()
-        user = await userFunc.getUser(username = data['username'])
-      elif (('password' in data) & ('email' in data)):
+        user = await userFunc.getUser(username=data['username'])
+      elif ('password' in data) & ('email' in data):
         userFunc = UserFunctions()
-        user = await userFunc.getUser(email= data['email'])
+        user = await userFunc.getUser(email=data['email'])
       if user:
-        if (user['password'] == data['password']):
+        if user['password'] == data['password']:
           token = super(LoginHandler, self).jwtEncode()
           self.encoded = token
           response = {'token': self.encoded.decode('ascii')}

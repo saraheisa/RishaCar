@@ -1,10 +1,9 @@
 import json
-from lib.auth import jwtauth
+import logging
 from bson import json_util
-from bson.json_util import dumps
+from lib.auth import jwtauth
 from handlers.base import BaseHandler
 
-import logging
 logger = logging.getLogger('rishacar.' + __name__)
 
 @jwtauth

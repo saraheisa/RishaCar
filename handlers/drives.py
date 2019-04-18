@@ -1,11 +1,10 @@
 import json
-from lib.auth import jwtauth
+import logging
 from bson import json_util
-from bson.json_util import dumps
+from lib.auth import jwtauth
 from handlers.base import BaseHandler
 from lib.DBConnection import DriveFunctions
 
-import logging
 logger = logging.getLogger('rishacar.' + __name__)
 
 @jwtauth
@@ -21,13 +20,13 @@ class DrivesHandler(BaseHandler):
       result = await driveFunc.getDrives()
 
     if result:
-      self.write(json_util.dumps(result))
+      self.write(json_util.dumps(super(DrivesHandler, self).listToDict(result)))
     else:
       self.set_status(500)
       self.write({"message":"database error"})
       self.finish()
 
-  async def post(self,_):
+  async def post(self, _):
     if self.request.body:
       data = json.loads(self.request.body)
       driveFunc = DriveFunctions()
