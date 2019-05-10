@@ -3,7 +3,7 @@
 """
 import jwt
 
-AUTHORIZATION_HEADER = 'Authorization'
+AUTHORIZATION_HEADER = 'token'
 AUTHORIZATION_METHOD = 'bearer'
 SECRET_KEY = "secret_key"
 INVALID_HEADER_MESSAGE = "invalid header authorization"

@@ -13,5 +13,6 @@ url_patterns = [
     (r"/auth/google/", GoogleLoginHandler),
     (r"/signup", SignupHandler),
     (r"/drives/([^/]+)?", DrivesHandler),
-    (r"/users/([^/]+)?", UsersHandler)
+    (r"/users/([^/]+)?", UsersHandler),
+    (r"/verify/user/([^/]+)?", UsersHandler)
 ]
