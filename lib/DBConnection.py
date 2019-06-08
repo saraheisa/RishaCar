@@ -1,4 +1,5 @@
 import motor.motor_tornado
+from bson import ObjectId
 
 # db = motor.motor_tornado.MotorClient('localhost', 27017).RichaCarDB
 connection = motor.motor_tornado.MotorClient('mongodb://admin:aMtcr6Bi4xixhp2C4EK4mKerd@ds119996.mlab.com:19996/rishacar')
@@ -21,12 +22,12 @@ class UserFunctions:
 
   async def deleteUser(self, id):
     global db
-    result = await db.users.delete_one({"id": int(id)})
+    result = await db.users.delete_one({'_id': ObjectId(id)})
     return result
 
   async def updateUser(self, id, user):
     global db
-    result = await db.users.update_one({"id": int(id)}, {'$set': user}, False, True)
+    result = await db.users.update_one({'_id': ObjectId(id)}, {'$set': user}, False, True)
     return result
 
   async def getUser(self, username = '', email = '', id = ''):
@@ -38,13 +39,22 @@ class UserFunctions:
       user = await db.users.find_one({'email': email})
       return user
     else:
-      user = await db.users.find_one({'id': int(id)})
+      user = await db.users.find_one({'_id': ObjectId(id)})
       return user
+
+  async def getEmail(self, email):
+    global db
+    user = await db.users.find_one({'email': email})
+    if user:
+      return True
+    else:
+      return False
+
 
 class DriveFunctions:
   async def getDrives(self):
     global db
-    collection = db.drives 
+    collection = db.drives
     cursor = collection.find()
     drives = []
     for doc in await cursor.to_list(10):
