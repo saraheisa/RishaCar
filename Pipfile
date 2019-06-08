@@ -15,6 +15,7 @@ pylint = "*"
 pycrypto = "*"
 pycryptodome = "*"
 PyJWT = "*"
+cryptography = "*"
 
 [requires]
 python_version = "3.7"
