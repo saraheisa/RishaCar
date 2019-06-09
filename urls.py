@@ -6,6 +6,7 @@ from handlers.signup import SignupHandler
 from handlers.drives import DrivesHandler
 from handlers.users import UsersHandler
 from handlers.usersVerify import UsersVerifyHandler
+from handlers.cars import CarsHandler
 
 url_patterns = [
     (r"/login", LoginHandler),
@@ -14,6 +15,7 @@ url_patterns = [
     (r"/auth/google/", GoogleLoginHandler),
     (r"/signup", SignupHandler),
     (r"/drives/([^/]+)?", DrivesHandler),
+    (r"/cars/([^/]+)?", CarsHandler),
     (r"/users/([^/]+)?", UsersHandler),
     (r"/users/verify/", UsersVerifyHandler)
 ]

@@ -89,3 +89,43 @@ class DriveFunctions:
     for doc in await cursor.to_list(10):
       drives.append(doc)
     return drives
+
+
+class CarFunctions:
+  async def getCars(self):
+    global db
+    collection = db.cars
+    cursor = collection.find()
+    cars = []
+    for doc in await cursor.to_list(10):
+      cars.append(doc)
+    return cars
+  
+  async def insertCar(self, car):
+    global db
+    result = await db.cars.insert_one(car)
+    return result
+  
+  async def deleteCar(self, id):
+    global db
+    result = await db.cars.delete_one({'_id': ObjectId(id)})
+    return result
+  
+  async def getCar(self, id):
+    global db
+    result = await db.cars.find_one({'_id': ObjectId(id)})
+    return result
+
+  async def updateCar(self, id, car):
+    global db
+    result = await db.cars.update_one({'_id': ObjectId(id)}, {'$set': car}, False, True)
+    return result
+
+  async def getFilteredCars(self, f):
+    global db
+    collection = db.cars 
+    cursor = collection.find(f)
+    cars = []
+    for doc in await cursor.to_list(10):
+      cars.append(doc)
+    return cars
