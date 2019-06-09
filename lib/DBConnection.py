@@ -68,17 +68,17 @@ class DriveFunctions:
   
   async def deleteDrive(self, id):
     global db
-    result = await db.drives.delete_one({"id":int(id)})
+    result = await db.drives.delete_one({'_id': ObjectId(id)})
     return result
   
   async def getDrive(self, id):
     global db
-    result = await db.drives.find_one({"id": int(id)})
+    result = await db.drives.find_one({'_id': ObjectId(id)})
     return result
 
   async def updateDrive(self, id, drive):
     global db
-    result = await db.drives.update_one({"id": int(id)}, {'$set': drive}, False, True)
+    result = await db.drives.update_one({'_id': ObjectId(id)}, {'$set': drive}, False, True)
     return result
 
   async def getFilteredDrives(self, f):
