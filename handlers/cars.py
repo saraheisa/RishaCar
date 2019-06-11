@@ -23,7 +23,7 @@ class CarsHandler(BaseHandler):
       result = await carFunc.getFilteredCars(data)
     # get all cars
     else:
-      result = await carFunc.getCar()
+      result = await carFunc.getCars()
     if result:
       self.write(json_util.dumps(super(CarsHandler, self).listToDict(result)))
     else:
@@ -35,8 +35,8 @@ class CarsHandler(BaseHandler):
     if self.request.body:
       data = json.loads(self.request.body)
       if self.verify_data(data):
-        carFunc = carFunctions()
-        result = await carFunc.insertcar(data)
+        carFunc = CarFunctions()
+        result = await carFunc.insertCar(data)
         if result:
           self.write({"message":"car added successfully"})
         else:
@@ -58,7 +58,7 @@ class CarsHandler(BaseHandler):
         data = json.loads(self.request.body)
         if 'userId' in data:
           carFunc = CarFunctions()
-          result = await carFunc.getcar(id)
+          result = await carFunc.getCar(id)
           if result:
             if result['userId'] == data['userId']:
               result = await carFunc.deleteCar(id)
