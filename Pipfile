@@ -12,8 +12,6 @@ tornado = "*"
 motor = "*"
 nose = "*"
 pylint = "*"
-pycrypto = "*"
-pycryptodome = "*"
 PyJWT = "*"
 cryptography = "*"
 
