@@ -47,7 +47,7 @@ class SignupHandler(BaseHandler):
     return cipher_suite.encrypt(text)
   
   def verify_data(self, data):
-    return data['email'] and data['password'] and data['firstName'] and data['middleName'] and data['lastName'] and data['phoneNumber']
+    return 'email' in data and 'password' in data and 'firstName' in data and 'middleName' in data and 'lastName' in data and 'phoneNumber' in data
 
   async def email_exists(self, email):
     userFunc = UserFunctions()

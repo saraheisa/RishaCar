@@ -37,7 +37,7 @@ def return_auth_error(handler, message):
     """
     handler._transforms = []
     handler.set_status(AUTHORIZTION_ERROR_CODE)
-    handler.write(message)
+    handler.write({"message":message})
     handler.finish()
 
 def return_header_error(handler):
@@ -72,7 +72,7 @@ def jwtauth(handler_class):
 
             else:
                 handler._transforms = []
-                handler.write(MISSING_AUTHORIZATION_KEY)
+                handler.write({"message": MISSING_AUTHORIZATION_KEY})
                 handler.finish()
 
             return True

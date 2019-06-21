@@ -16,6 +16,7 @@ class CarsHandler(BaseHandler):
       result = await carFunc.getCar(id)
       result['_id'] = str(result['_id'])
       self.write(json_util.dumps(result))
+      self.set_header('Content-Type', 'application/json')
       self.finish()
     # get filtered cars
     elif self.request.body:
@@ -26,9 +27,12 @@ class CarsHandler(BaseHandler):
       result = await carFunc.getCars()
     if result:
       self.write(json_util.dumps(super(CarsHandler, self).listToDict(result)))
+      self.set_header('Content-Type', 'application/json')
+      self.finish()
     else:
       self.set_status(500)
       self.write({"message":"database error"})
+      self.set_header('Content-Type', 'application/json')
       self.finish()
 
   async def post(self, _):
@@ -39,17 +43,22 @@ class CarsHandler(BaseHandler):
         result = await carFunc.insertCar(data)
         if result:
           self.write({"message":"car added successfully"})
+          self.set_header('Content-Type', 'application/json')
+          self.finish()
         else:
           self.set_status(500)
           self.write({"message":"database error"})
+          self.set_header('Content-Type', 'application/json')
           self.finish()
       else:
         self.set_status(400)
         self.write({"message":"missing some data"})
+        self.set_header('Content-Type', 'application/json')
         self.finish()
     else:
       self.set_status(400)
       self.write({"message":"missing data"})
+      self.set_header('Content-Type', 'application/json')
       self.finish()
 
   async def delete(self, id):
@@ -64,29 +73,37 @@ class CarsHandler(BaseHandler):
               result = await carFunc.deleteCar(id)
               if result:
                 self.write({"message":"car was deleted successfully"})
+                self.set_header('Content-Type', 'application/json')
+                self.finish()
               else:
                 self.set_status(500)
                 self.write({"message":"database error"})
+                self.set_header('Content-Type', 'application/json')
                 self.finish()
             else:
               self.set_status(400)
               self.write({"message":"wrong userId"})
+              self.set_header('Content-Type', 'application/json')
               self.finish()
           else:
             self.set_status(400)
             self.write({"message":"car not found"})
+            self.set_header('Content-Type', 'application/json')
             self.finish()
         else:
           self.set_status(400)
           self.write({"message":"missing userId"})
+          self.set_header('Content-Type', 'application/json')
           self.finish()
       else:
         self.set_status(400)
         self.write({"message":"missing data"})
+        self.set_header('Content-Type', 'application/json')
         self.finish()
     else:
       self.set_status(400)
       self.write({"message":"missing car id"})
+      self.set_header('Content-Type', 'application/json')
       self.finish()
 
   async def put(self, id):
@@ -103,30 +120,38 @@ class CarsHandler(BaseHandler):
               result = await carFunc.updateCar(id, data)
               if result:
                 self.write({"message":"updated"})
+                self.set_header('Content-Type', 'application/json')
+                self.finish()
               else:
                 self.set_status(500)
                 self.write({"message":"database error"})
+                self.set_header('Content-Type', 'application/json')
                 self.finish()
             else:
               self.set_status(400)
               self.write({"message":"wrong userId"})
+              self.set_header('Content-Type', 'application/json')
               self.finish()
           else:
             self.set_status(400)
             self.write({"message":"car not found"})
+            self.set_header('Content-Type', 'application/json')
             self.finish()
         else:
           self.set_status(400)
           self.write({"message":"missing userId"})
+          self.set_header('Content-Type', 'application/json')
           self.finish()
       else:
         self.set_status(400)
         self.write({"message":"missing data"})
+        self.set_header('Content-Type', 'application/json')
         self.finish()
     else:
       self.set_status(400)
       self.write({"message":"missing car id"})
+      self.set_header('Content-Type', 'application/json')
       self.finish()
 
   def verify_data(self, data):
-    return data['userId'] and data['carModel'] and data['carMake'] and data['carColor'] and data['carPlateNumber'] and data['isVerfifiedCar'] and data['carLisenceNumber']
+    return 'userId' in data and 'carModel' in data and 'carMake' in data and 'carColor' in data and 'carPlateNumber' in data and 'isVerfifiedCar' in data and 'carLisenceNumber' in data

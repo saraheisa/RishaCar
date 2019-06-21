@@ -20,6 +20,8 @@ class UsersHandler(BaseHandler):
         result['_id'] = str(result['_id'])
         del result['password']
         self.write(json_util.dumps(result))
+        self.set_header('Content-Type', 'application/json')
+        self.finish()
       else:
         self.set_status(500)
         self.write({"message":"database error"})
@@ -36,6 +38,8 @@ class UsersHandler(BaseHandler):
             result['_id'] = str(result['_id'])
             del result['password']
             self.write(json_util.dumps(result))
+            self.set_header('Content-Type', 'application/json')
+            self.finish()
           else:
             self.set_status(500)
             self.write({"message":"database error"})

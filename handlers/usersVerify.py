@@ -42,4 +42,4 @@ class UsersVerifyHandler(BaseHandler):
       self.finish()
 
   def verify_data(self, data):
-    return data['id'] and data['nationalID'] and data['nationalIdImage']
+    return 'id' in data and 'nationalID' in data and 'nationalIdImage' in data
