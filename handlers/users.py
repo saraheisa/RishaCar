@@ -23,8 +23,8 @@ class UsersHandler(BaseHandler):
         self.set_header('Content-Type', 'application/json')
         self.finish()
       else:
-        self.set_status(500)
-        self.write({"message":"database error"})
+        self.set_status(404)
+        self.write({"message":"user_id doesn't exist"})
         self.finish()
     # get the user's data
     else:
@@ -41,8 +41,8 @@ class UsersHandler(BaseHandler):
             self.set_header('Content-Type', 'application/json')
             self.finish()
           else:
-            self.set_status(500)
-            self.write({"message":"database error"})
+            self.set_status(404)
+            self.write({"message":"user_id doesn't exist"})
             self.finish()
         else:
           self.set_status(400)
