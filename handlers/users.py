@@ -60,6 +60,10 @@ class UsersHandler(BaseHandler):
         id = data['id']
         userFunc = UserFunctions()
         del data['id']
+        if data['password']:
+          key = b'i102LDEGa-8PLuZJ9kw-VR2VKCeYxOanZvM4KQAZLt8='
+          cipher_password = self.encrypt(key, bytes(data['password'], 'utf-8'))
+          data['password'] = cipher_password.decode("utf-8")
         result = await userFunc.updateUser(id, data)
         if result:
           self.write({"message":"user updated"})
@@ -115,3 +119,7 @@ class UsersHandler(BaseHandler):
   def decrypt(self, key, text):
     cipher_suite = Fernet(key)
     return (cipher_suite.decrypt(text))
+
+  def encrypt(self, key, text):
+    cipher_suite = Fernet(key)
+    return cipher_suite.encrypt(text)
