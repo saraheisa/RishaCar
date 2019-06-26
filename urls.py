@@ -11,6 +11,8 @@ from handlers.drivesRequest import DrivesRequestHandler
 from handlers.forgetPassword import ForgetPasswordHandler
 from handlers.userProvider import UserProviderHandler
 from handlers.driveFilter import DrivesFilterHandler
+from handlers.resetPassword import ResetPasswordHandler
+from handlers.changePassword import ChangePasswordHandler
 
 url_patterns = [
     (r"/login", LoginHandler),
@@ -24,6 +26,8 @@ url_patterns = [
     (r"/users/([^/]+)?", UsersHandler),
     (r"/users/verify/", UsersVerifyHandler),
     (r"/drives/request/", DrivesRequestHandler),
-    (r"/forgetPassword/([^/]+)?", ForgetPasswordHandler),
-    (r"/user/provider", UserProviderHandler)
+    (r"/forgetPassword", ForgetPasswordHandler),
+    (r"/user/provider", UserProviderHandler),
+    (r"/reset/password/([^/]+)", ResetPasswordHandler),
+    (r"/changePassword", ChangePasswordHandler)
 ]

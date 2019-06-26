@@ -1,20 +1,16 @@
-from __future__ import print_function
 import json
 import base64
 import logging
 import hashlib
-import pickle
-import os.path
 from cryptography.fernet import Fernet
 from bson import json_util
 from bson.json_util import dumps
 from handlers.base import BaseHandler
 from lib.DBConnection import UserFunctions
 from lib.DBConnection import LinksFunctions
-from googleapiclient.discovery import build
-from google_auth_oauthlib.flow import InstalledAppFlow
-from google.auth.transport.requests import Request
-
+from tornado import gen
+from email.message import EmailMessage
+from tornado_smtp.client import TornadoSMTP
 
 logger = logging.getLogger('rishacar.' + __name__)
 
@@ -36,39 +32,10 @@ class ForgetPasswordHandler(BaseHandler):
           linksFunc = LinksFunctions()
           result = await linksFunc.insertLink(link)
 
-          print(link)
-          self.set_status(200)
-          self.write({"message":"done"})
-          self.finish()
           # send email
-          SCOPES = ['https://www.googleapis.com/auth/gmail.readonly']
-          creds = None
-          if os.path.exists('token.pickle'):
-            with open('token.pickle', 'rb') as token:
-              creds = pickle.load(token)
-          if not creds or not creds.valid:
-            if creds and creds.expired and creds.refresh_token:
-              creds.refresh(Request())
-            else:
-                flow = InstalledAppFlow.from_client_secrets_file('credentials.json', SCOPES)
-                creds = flow.run_local_server()
-            # Save the credentials for the next run
-            with open('token.pickle', 'wb') as token:
-                pickle.dump(creds, token)
-          
-          service = build('gmail', 'v1', credentials=creds)
+          link = "https://rishacar.herokuapp.com/reset/password/" + linkID
 
-          # Call the Gmail API
-          results = service.users().labels().list(userId='me').execute()
-          labels = results.get('labels', [])
-
-          if not labels:
-            print('No labels found.')
-          else:
-            print('Labels:')
-            for label in labels:
-                print(label['name'])
-
+          self.send_email(data['email'], link)
 
           self.set_status(200)
           self.write({"message":"ok"})
@@ -93,3 +60,17 @@ class ForgetPasswordHandler(BaseHandler):
   async def email_exists(self, email):
     userFunc = UserFunctions()
     return await userFunc.getEmail(email)
+
+  @gen.coroutine
+  def send_email(self, email, link):
+    smtp = TornadoSMTP('smtp-mail.outlook.com')
+    yield smtp.starttls()
+    yield smtp.login('existed_user@outlook.com', 'eo%Y0pOTmJ%8lG$F9qfT')
+
+    msg = EmailMessage()
+    msg['Subject'] = 'Reset Password for RISHA CAR'
+    msg['To']      = email
+    msg['From']    = 'existed_user@outlook.com'
+    msg.set_content('reset your password:\n ' + link)
+    smtp.send_message(msg)
+    print('done')

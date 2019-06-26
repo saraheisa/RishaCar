@@ -134,7 +134,7 @@ class CarFunctions:
 class LinksFunctions:
   async def getLink(self, id):
     global db
-    result = await db.forgetPasswordLinks.find_one({'id': id})
+    result = await db.forgetPasswordLinks.find_one({'linkID': id})
     return result
   
   async def insertLink(self, link):
@@ -144,5 +144,5 @@ class LinksFunctions:
   
   async def deleteLink(self, id):
     global db
-    result = await db.forgetPasswordLinks.delete_one({'id': id})
+    result = await db.forgetPasswordLinks.delete_one({'linkID': id})
     return result
