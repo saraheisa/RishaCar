@@ -129,3 +129,20 @@ class CarFunctions:
     for doc in await cursor.to_list(10):
       cars.append(doc)
     return cars
+
+
+class LinksFunctions:
+  async def getLink(self, id):
+    global db
+    result = await db.forgetPasswordLinks.find_one({'id': id})
+    return result
+  
+  async def insertLink(self, link):
+    global db
+    result = await db.forgetPasswordLinks.insert_one(link)
+    return result
+  
+  async def deleteLink(self, id):
+    global db
+    result = await db.forgetPasswordLinks.delete_one({'id': id})
+    return result

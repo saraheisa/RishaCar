@@ -7,6 +7,10 @@ from handlers.drives import DrivesHandler
 from handlers.users import UsersHandler
 from handlers.usersVerify import UsersVerifyHandler
 from handlers.cars import CarsHandler
+from handlers.drivesRequest import DrivesRequestHandler
+from handlers.forgetPassword import ForgetPasswordHandler
+from handlers.userProvider import UserProviderHandler
+from handlers.driveFilter import DrivesFilterHandler
 
 url_patterns = [
     (r"/login", LoginHandler),
@@ -15,7 +19,11 @@ url_patterns = [
     (r"/auth/google/", GoogleLoginHandler),
     (r"/signup", SignupHandler),
     (r"/drives/([^/]+)?", DrivesHandler),
+    (r"/drive/filter", DrivesFilterHandler),
     (r"/cars/([^/]+)?", CarsHandler),
     (r"/users/([^/]+)?", UsersHandler),
-    (r"/users/verify/", UsersVerifyHandler)
+    (r"/users/verify/", UsersVerifyHandler),
+    (r"/drives/request/", DrivesRequestHandler),
+    (r"/forgetPassword/([^/]+)?", ForgetPasswordHandler),
+    (r"/user/provider", UserProviderHandler)
 ]
