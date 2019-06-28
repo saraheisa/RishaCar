@@ -60,7 +60,7 @@ class UsersHandler(BaseHandler):
         id = data['id']
         userFunc = UserFunctions()
         del data['id']
-        if data['password']:
+        if 'password' in data:
           key = b'i102LDEGa-8PLuZJ9kw-VR2VKCeYxOanZvM4KQAZLt8='
           cipher_password = self.encrypt(key, bytes(data['password'], 'utf-8'))
           data['password'] = cipher_password.decode("utf-8")
